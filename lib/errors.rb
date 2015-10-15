@@ -1,7 +1,5 @@
-class AppPinger::Error < RuntimeError
-
-class InvalidURLError < AppPinger::Error
+class InvalidURLError < RuntimeError
 end
 
-class InvalidStartTimeError < AppPinger::Error
+class InvalidStartTimeError < RuntimeError
 end

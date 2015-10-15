@@ -1,3 +1,4 @@
+require 'rest-client'
 require_relative 'errors'
 
 class HerokuAppPinger
@@ -20,10 +21,11 @@ class HerokuAppPinger
       if active?
         @urls.each do |url|
           begin
-            RestClient.get(url)
+            response = RestClient.get(url, { accept: :json })
+            puts "Successfully pinged #{url} at #{Time.now}\n" if response
           rescue => e
-            puts "Error raised when attempting to ping URL #{url} at time
-              #{Time.now}. The RestClient error was:\n"
+            puts("Error raised when attempting to ping URL #{url} at time" +
+              "#{Time.now}. The RestClient error was:\n")
             p(e)
             puts
           end
@@ -47,7 +49,7 @@ class HerokuAppPinger
       e = InvalidStartTimeError.new("Start and end times must each be an integer
         hour, or a string in the form 'hh:mm'. The start time and end time (if
         given) must specify a time period no longer than 17 hours and 25
-        minutes, since  free Heroku apps are forced into recharge/sleep mode
+        minutes, since free Heroku apps are forced into recharge/sleep mode
         after more than 18 hours of activity within a 24 hour window. Heroku
         defines an app as active if it has responded to a request within the
         last 30 minutes.")
@@ -83,10 +85,10 @@ class HerokuAppPinger
     def parse_and_validate_time(time, e)
       if time.is_a? String
         raise e unless time =~ /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/
-        hour, min = time.split(':').map { |str| str.to_i }
+        hour, min = time.split(':').map(&:to_i)
       elsif time.is_a? Fixnum
         hour, min = time, 0
-        raise e unless hour.between?(0, 23) && min.between?(0, 59)
+        raise e unless hour.between?(0, 23)
       else
         raise e
       end
@@ -94,3 +96,6 @@ class HerokuAppPinger
       [hour, min]
     end
 end
+
+HerokuAppPinger.new(['clonestarter.net',
+  'https://sheltered-brushlands-6161.herokuapp.com'], 7, "23:59").run
