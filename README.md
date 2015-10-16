@@ -39,3 +39,6 @@ your changes.
 
 5. Enter ```ruby run.rb``` in the workspace's command line to run the script and
 begin pinging.
+
+Letting the script run, close c9.io. Come back whenever you want to check the
+logs or make changes.
