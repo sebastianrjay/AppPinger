@@ -12,6 +12,7 @@ slower to set up. If you want greater control over your app and some logs, this
 is the way to go.
 
 HerokuAppPinger offers the following advantages over NewRelic:
+- Faster setup
 - NewRelic continuously pings apps for 24 hours, which triggers Heroku's
 automatic shutoff when the app exceeds 18 hours of activity within a 24-hour
 window. HerokuAppPinger does not.
