@@ -19,5 +19,8 @@ window.
 - Setting up pinging for multiple apps takes no more time than setup for a
 single app.
 
+The disadvantages over NewRelic are that I haven't created a GUI or added email
+alerting functionality (yet!) for unsuccessful pinging.
+
 
 Use and [c9.io](c9.io) cloud deployment directions coming soon!
