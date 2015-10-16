@@ -64,7 +64,7 @@ class HerokuAppPinger
     def set_and_validate_times(daily_start_time, daily_end_time)
       e = InvalidStartTimeError.new("Start and end times must each be an integer
         hour, or a string in the form 'hh:mm'. The start time and end time (if
-        given) must specify a time period no longer than 17 hours and 25
+        given) must specify a time period no longer than 17 hours and 28
         minutes, since free Heroku apps are forced into recharge/sleep mode
         after more than 18 hours of activity within a 24 hour window. Heroku
         defines an app as active if it has responded to a request within the
@@ -79,7 +79,7 @@ class HerokuAppPinger
       end
 
       interval_len = ((end_hour - start_hour).abs * 100) + end_min - start_min
-      raise e unless interval_len.between?(0, 1725)
+      raise e unless interval_len.between?(0, 1728)
 
       @start_hour, @start_min = start_hour, start_min
       @end_hour, @end_min = end_hour, end_min
