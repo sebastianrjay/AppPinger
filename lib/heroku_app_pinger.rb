@@ -3,15 +3,24 @@ require_relative 'errors'
 
 class HerokuAppPinger
   def initialize(urls, daily_start_time, daily_end_time = nil)
+    @sleeping = false
     set_and_validate_urls(urls)
     set_and_validate_times(daily_start_time, daily_end_time)
   end
 
   def active?
     t = Time.now
-    t.hour.between?(@start_hour + 1, @end_hour - 1) ||
-      (t.hour == @end_hour && t.min < @end_min) ||
-        (t.hour == @start_hour && t.min > @start_min)
+    if @start_hour < @end_hour
+      t.hour.between?(@start_hour + 1, @end_hour - 1) ||
+        (t.hour == @end_hour && t.min < @end_min) ||
+          (t.hour == @start_hour && t.min > @start_min)
+    elsif @start_hour == @end_hour
+       t.min > @start_min && t.min < @end_min
+    else
+      t.hour.between?(@start_hour + 1, @end_hour + 24 - 1) ||
+        (t.hour == @end_hour && t.min < @end_min) ||
+          (t.hour == @start_hour && t.min > @start_min)
+    end
   end
 
   def run
@@ -19,9 +28,10 @@ class HerokuAppPinger
     # When active, makes a GET request to all URLs every 10-20 min.
     while true
       if active?
+        @sleeping = false
         @urls.each do |url|
           begin
-            response = RestClient.get(url, { accept: :json })
+            response = RestClient.get(url)
             puts "Successfully pinged #{url} at #{Time.now}\n" if response
           rescue => e
             puts("Error raised when attempting to ping URL #{url} at time" +
@@ -33,9 +43,15 @@ class HerokuAppPinger
 
         seconds = 540 + (Random.rand * 600).to_i
         sleep(seconds)
-      end
+      else
+        unless @sleeping
+          puts "Entering sleep mode at #{Time.now} for the following URLs:"
+          @urls.each { |url| puts url }
+          @sleeping = true
+        end
 
-      sleep(60)
+        sleep(60)
+      end
     end
   end
 
@@ -71,7 +87,7 @@ class HerokuAppPinger
 
     def set_and_validate_urls(urls)
       e = InvalidURLError.new("HerokuAppPinger must receive a single URL string,
-            or an array of URL strings")
+            or an array of URL string(s)")
       if urls.is_a? String
         @urls = [urls]
       elsif urls.is_a? Array
@@ -96,6 +112,3 @@ class HerokuAppPinger
       [hour, min]
     end
 end
-
-HerokuAppPinger.new(['clonestarter.net',
-  'https://sheltered-brushlands-6161.herokuapp.com'], 7, "23:59").run
