@@ -5,7 +5,7 @@ periods. It offers the following advantages over kaffeine.herokuapp.com:
 - Logs that tell you if each URL was successfully pinged, or if there was a
 server error when the GET request was made.
 - Non-continuous pinging periods. kaffeine assumes that you want to ping for 18
-hour continuously during a 24-hour period. HerokuAppPinger allows you to ping
+hours continuously during a 24-hour period. HerokuAppPinger allows you to ping
 over multiple time periods during a 24-hour window.
 
 The only disadvantage over kaffeine.herokuapp.com is that HerokuAppPinger is
@@ -20,4 +20,4 @@ window.
 single app.
 
 
-Use and [c9.io](c9.io) deployment directions coming soon!
+Use and [c9.io](c9.io) cloud deployment directions coming soon!
