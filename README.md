@@ -16,8 +16,8 @@ HerokuAppPinger offers the following advantages over NewRelic:
 - NewRelic continuously pings apps for 24 hours, which triggers Heroku's
 automatic shutoff when the app exceeds 18 hours of activity within a 24-hour
 window.
-- Setting up pinging for multiple apps takes no more time than setting up
-pinging for multiple apps.
+- Setting up pinging for multiple apps takes no more time than setup for a
+single app.
 
 
-Use and c9.io deployment directions coming soon!
+Use and [c9.io](c9.io) deployment directions coming soon!
