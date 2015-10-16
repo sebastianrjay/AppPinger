@@ -24,13 +24,18 @@ alerting functionality (yet!) for unsuccessful pinging.
 
 
 Use and deployment directions:
+
 1. Create an account at [c9.io](c9.io) if you haven't already
+
 2. Create a new workspace. Name it whatever you want. In the field titled,
 "Clone from Git or Mercurial URL", paste the HTTPS clone URL listed in the
 sidebar at the right of this README. Use the default template, titled "Custom".
+
 3. Once the workspace has been created, run ```bundle install``` in its command
 line.
+
 4. Open run.rb and follow the directions inside to create your pingers. Save
 your changes.
+
 5. Enter ```ruby run.rb``` in the workspace's command line to run the script and
 begin pinging.
