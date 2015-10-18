@@ -9,7 +9,7 @@ class HerokuAppPinger
   end
 
   def active?
-    t = Time.now
+    t = Time.now.getutc
     if @start_hour < @end_hour
       t.hour.between?(@start_hour + 1, @end_hour - 1) ||
         (t.hour == @end_hour && t.min < @end_min) ||

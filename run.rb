@@ -3,8 +3,8 @@ require_relative 'lib/heroku_app_pinger.rb'
 
 # Instantiate and run your app pingers in this file.
 #
-# NOTE: all times must be on the 00:00 - 23:59 scale. The time will correspond
-# to the local time at the server where you run this script.
+# NOTE: all times must be written as 00:00 - 23:59, and are automatically
+# converted to UTC
 #
 # Examples:
 #
