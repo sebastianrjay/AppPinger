@@ -1,44 +1,16 @@
-This is a developer tool to ping your Heroku apps during your preferred time
-periods. It offers the following advantages over kaffeine.herokuapp.com:
+This is a script to locally ping your Heroku apps during your preferred time
+periods, to prevent them from sleeping. It can be deployed on a server or run
+locally.
 
-- Logs that tell you if each URL was successfully pinged, or if there was a
-server error when the GET request was made.
-- Non-continuous pinging periods. kaffeine assumes that you want to ping for 18
-hours continuously during a 24-hour period. HerokuAppPinger allows you to ping
-over multiple time periods during a 24-hour window.
+To use it, first configure run.rb as described in the commented directions.
 
-The only disadvantage over kaffeine.herokuapp.com is that HerokuAppPinger is
-slower to set up. If you want greater control over your app and some logs, this
-is the way to go.
+Then navigate to the root directory and enter ```ruby run.rb``` to begin
+pinging. It prints logs to notify you if and when each URL was successfully
+pinged, and prints GET response error messages without halting pinging.
 
-HerokuAppPinger offers the following advantages over NewRelic:
-- Faster setup
-- NewRelic continuously pings apps for 24 hours, which triggers Heroku's
-automatic shutoff when the app exceeds 18 hours of activity within a 24-hour
-window. HerokuAppPinger does not.
-- Setting up pinging for multiple apps takes no more time than setup for a
-single app.
+My previous README included directions for deploying the script at c9.io in
+order to ping the apps continually. Unfortunately this doesn't work, as c9.io
+closes every terminal session when you close the tab containing your workspace.
 
-The disadvantages over NewRelic are that I haven't created a GUI or added email
-alerting functionality (yet!) for unsuccessful pinging.
-
-
-Use and deployment directions:
-
-1. Create an account at [c9.io](c9.io) if you haven't already
-
-2. Create a new workspace. Name it whatever you want. In the field titled,
-"Clone from Git or Mercurial URL", paste the HTTPS clone URL listed in the
-sidebar at the right of this README. Use the default template, titled "Custom".
-
-3. Once the workspace has been created, run ```bundle install``` in its command
-line.
-
-4. Open run.rb and follow the directions inside to create your pingers. Save
-your changes.
-
-5. Enter ```ruby run.rb``` in the workspace's command line to run the script and
-begin pinging.
-
-Letting the script run, close c9.io. Come back whenever you want to check the
-logs or make changes.
+I may build this into a Rails app similar to kaffeine.herokuapp.com, or write
+a new set of directions for a different cloud deployment option.
