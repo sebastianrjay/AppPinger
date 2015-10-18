@@ -57,10 +57,6 @@ class HerokuAppPinger
 
   private
 
-    def default_end_time(daily_start_time)
-      daily_start_time
-    end
-
     def set_and_validate_times(daily_start_time, daily_end_time)
       e = InvalidStartTimeError.new("Start and end times must each be an integer
         hour, or a string in the form 'hh:mm'. The start time and end time (if
