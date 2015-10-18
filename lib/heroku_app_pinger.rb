@@ -74,8 +74,8 @@ class HerokuAppPinger
       if daily_end_time
         end_hour, end_min = parse_and_validate_time(daily_end_time, e)
       else
-        end_hour, end_min = (start_hour + 17) % 24, (start_min + 25) % 60
-        end_hour += 1 if (start_min + 25) / 60 == 1
+        end_hour, end_min = (start_hour + 17) % 24, (start_min + 28) % 60
+        end_hour += 1 if (start_min + 28) / 60 == 1
       end
 
       interval_len = ((end_hour - start_hour).abs * 100) + end_min - start_min
